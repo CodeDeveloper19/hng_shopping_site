@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next{
+  width: 100%;
+  min-width: fit-content;
+  overflow-x: auto;
+}
