@@ -12,11 +12,7 @@ const poppins = Poppins({
 
 export default class Product extends Component {
   render() {
-    const { name, price, classNames, imageLink, shadowLink} = this.props;
-
-    const productImageHeightClass = name === 'Toulouse fabric ROUND CHAIR' ? 'h-[659px]' : 'h-[270px]';
-    const productPaddingClass = name === 'Toulouse fabric ROUND CHAIR' ? 'px-[100px]' : '';
-    const productShadowHeightClass = name === 'Toulouse fabric ROUND CHAIR' ? 'h-[250px]' : 'h-[100px]';
+    const { name, price, classNames, imageLink, shadowLink, productImageHeightClass, productPaddingClass, productShadowHeightClass} = this.props;
 
     return (
       <>
