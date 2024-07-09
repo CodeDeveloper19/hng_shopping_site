@@ -40,17 +40,9 @@ export default function Header() {
             <li className='mt-[20px] minTablet:mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>Contact Us</Link></li>
           </ul>
         </nav>
-        <Link href='/cart'><button className='hover:opacity-[0.5]'><Image width={18} height={18} src='/header/cart_icon.svg' alt='cart icon'/></button></Link>
+        <Link href='/cart'><button className='hover:opacity-[0.5] flex items-center'><Image width={18} height={18} src='/header/cart_icon.svg' alt='cart icon'/></button></Link>
       </section>
     </header>
     </>
   );
-  
-  // render() {
-  //   const [showNavLinks, setShowNavLinks] = useState(false);
-
-
-  // }
 }
-
-// export default Header
