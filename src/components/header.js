@@ -32,7 +32,7 @@ export default function Header() {
         </div>
         <nav>
           <ul style={{display: showNavLinks}}
-          className={`${poppins.className} rounded-[5px] p-[30px] minTablet:p-0 bg-[#E0E0E0] minTablet:bg-transparent text-[12px] text-[#000000] leading-[18px] uppercase absolute left-[40px] minTablet:left-0 top-[90px] minTablet:top-0 minTablet:relative tablet:!flex flex-col minTablet:flex-row justify-between`}>
+          className={`${poppins.className} z-20 rounded-[5px] p-[30px] minTablet:p-0 bg-[#E0E0E0] minTablet:bg-transparent text-[12px] text-[#000000] leading-[18px] uppercase absolute left-[40px] minTablet:left-0 top-[90px] minTablet:top-0 minTablet:relative tablet:!flex flex-col minTablet:flex-row justify-between`}>
             <li className='mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>Home</Link></li>
             <li className='mt-[20px] minTablet:mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>Shop</Link></li>
             <li className='mt-[20px] minTablet:mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>About</Link></li>
