@@ -86,7 +86,7 @@ export default function Home() {
                   classNames='laptop:col-start-3 laptop:col-end-5' 
                   imageLink='/homepage/red_chair.png'
                   shadowLink='/homepage/red_chair_shadow.png'
-                  productImageHeightClass='h-[180px] phone:h-[300px] laptop:h-[659px]'
+                  productImageHeightClass='h-[180px] phone:h-[300px] laptop:h-[609px]'
                   productPaddingClass='phone:px-[100px] pt-[50px]'
                   productShadowHeightClass='h-[70px] phone:h-[110px] laptop:h-[250px]'
                 />

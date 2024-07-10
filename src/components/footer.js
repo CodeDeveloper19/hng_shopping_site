@@ -18,7 +18,7 @@ export default class Footer extends Component {
   render() {
     return (
       <div className='w-full bg-[#31514D] flex justify-center'>
-        <footer className={`${poppins.className} text-[#FAFAFA] w-full h-fit flex flex-col minLaptop:flex-row items-center minLaptop:justify-between px-[70px] py-[70px] max-w-[1440px]`}> 
+        <footer className={`${poppins.className} text-[#FAFAFA] w-full h-fit flex flex-col minLaptop:flex-row items-start minLaptop:justify-between px-[70px] py-[70px] max-w-[1440px]`}> 
           <section className='min-w-full phone:min-w-[300px] minLaptop:min-w-fit'>
             <h2 className={`${plus_jakarta_sans.className} leading-[18.9px] text-[15px] text-[#F3F3F3] mb-[20px] uppercase`}>Connect with us</h2>
             <ul className='uppercase leading-[35px] text-[12px]'>
