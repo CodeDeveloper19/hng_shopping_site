@@ -136,7 +136,7 @@ export default function Checkout() {
               <p className='font-[600] text-[15px] leading-[23px] text-[#740000]'>Arrives in 2-5 days</p>
               {
                 cartItems.map((cartItem, index) => (
-                  <div className='flex flex-col minTablet:flex-row justify-between mt-[20px] mb-[80px]'>
+                  <div key={index} className='flex flex-col minTablet:flex-row justify-between mt-[20px] mb-[80px]'>
                     <div className='w-full minTablet:w-[48%] border-[1px] border-[#31514D] py-[20px]'>
                       <div id='productImage' className={`relative w-full h-[250px] phone:h-[400px] minTablet:h-full`}>
                         <Image unoptimized loader={() => cartItem.imageLink} fill src={cartItem.imageLink} className="object-contain" alt="image of a product" />
