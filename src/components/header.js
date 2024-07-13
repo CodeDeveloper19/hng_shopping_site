@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <>
-    <header className='w-full max-w-[1440px] px-[70px]'>
+    <header className='w-full max-w-[1440px] px-[50px] minTablet:px-[70px]'>
       <div className='w-full flex justify-center pt-[49px] pb-[30px] border-b-[1px] border-[#31514D]'>
         <h1 className={`text-[38px] text-[#31514D] ${plus_jakarta_sans.className}`} >HOME AFFAIRS</h1>
       </div>

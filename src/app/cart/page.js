@@ -23,7 +23,7 @@ export default class Cart extends Component {
       <>
       <section className='pt-[30px] pb-[150px]'>
         <div className='w-full flex justify-center'>
-          <div className='w-full max-w-[1440px] px-[70px] pb-[100px] flex flex-col minLaptop:flex-row justify-between'>
+          <div className='w-full max-w-[1440px] px-[50px] minTablet:px-[70px] pb-[100px] flex flex-col minLaptop:flex-row justify-between'>
             <div className='w-full minLaptop:w-[49%] border-[1px] border-[#31514D]'>
               <div className='h-fit w-full px-[50px] phone:px-[100px] relative top-0 minLaptop:top-[-20px] overflow-hidden'>
                 <div id='productImage' className={`relative w-full h-[300px] phone:h-[400px] minTablet:h-[600px] minLaptop:h-[700px]`}>
@@ -83,7 +83,7 @@ export default class Cart extends Component {
           </div>
         </div>
         <div className='w-full flex justify-center'>
-          <div className='w-full max-w-[1440px] px-[70px] flex flex-col'>
+          <div className='w-full max-w-[1440px] px-[50px] minTablet:px-[70px] flex flex-col'>
             <h2 className={`${plus_jakarta_sans.className} leading-[49px] text-[39px] text-black font-[500]`}>YOU MIGHT ALSO LIKE</h2>
             <div className='grid grid-cols-1 minTablet:grid-cols-2 laptop:grid-cols-4 gap-5 mt-[40px]'>
               <Product
