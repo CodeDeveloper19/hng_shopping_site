@@ -83,7 +83,7 @@ export default function ClientSidePage(props) {
                         'imageLink': imageLink,
                         'productName': data.name,
                         'guideDimensions': guideDimensions,
-                        'price': price,
+                        'price': (price == 2049) ? price : 1049.5,
                         'quantity': buyingQuantity
                     });
                 }
@@ -146,7 +146,23 @@ export default function ClientSidePage(props) {
                             </button>
                             </div>
                         </div>
-                        <p className='mt-[30px] minTablet:mt-[40%] font-[700] text-[#31514D] text-[12px] leading-[18px] uppercase'>PRICE:<span className='ml-[20px] font-[900] text-[22.4px] text-black leading-[34px]'>{`$${price}`}</span></p>
+                        <h3 className='flex flex-row items-center mt-[30px] minTablet:mt-[35%] font-[700] text-[#31514D] text-[12px] leading-[18px] uppercase'>
+                            PRICE:
+                        {
+                            (price == 2099) ?  
+                            (
+                                <span className='ml-[20px] font-[900] text-[22.4px] text-black leading-[34px] flex flex-row'>
+                                    <s>{`$${price}`}</s>
+                                    <p className='ml-[10px]'>1049.5</p>
+                                </span>
+                            ) : 
+                            (
+                                <span className='ml-[20px] font-[900] text-[22.4px] text-black leading-[34px]'>
+                                    {`$${price}`}
+                                </span>
+                            )
+                        }
+                        </h3>
                         </div>
                     </div>
                     </div>

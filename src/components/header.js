@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Component, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
@@ -18,6 +18,25 @@ const poppins = Poppins({
 
 export default function Header() {
   const [showNavLinks, setShowNavLinks] = useState('none');
+  const [numberOfCartItems, setNumberOfCartItems] = useState(null);
+  const [showCartNotification, setCartNotification] = useState('none');
+
+  useEffect(() => {
+    let storedData = localStorage.getItem('homeAffairsCart');
+    if (storedData) {
+        try {
+            let parsedData = JSON.parse(storedData);
+            if(parsedData.length > 0){
+              setNumberOfCartItems(parsedData.length);
+              setCartNotification('flex');
+            }
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+        }
+    } else {
+      setNumberOfCartItems(null);
+    }
+  }, []);
 
   return (
     <>
@@ -40,7 +59,16 @@ export default function Header() {
             <li className='mt-[20px] minTablet:mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>Contact Us</Link></li>
           </ul>
         </nav>
-        <Link href='/cart'><button className='hover:opacity-[0.5] flex items-center'><Image width={18} height={18} src='/header/cart_icon.svg' alt='cart icon'/></button></Link>
+        <Link href='/cart'> 
+          <button className='hover:opacity-[0.5] flex items-center relative'>
+            <Image width={18} height={18} src='/header/cart_icon.svg' alt='cart icon'/>
+            <div className='absolute rounded-full w-[12px] h-[12px] bg-[#FF0000] top-[-3px] right-[-3px] text-white text-[8px] justify-center items-center' style={{display: showCartNotification}}>
+              {
+                numberOfCartItems
+              }
+            </div>
+          </button>
+        </Link>
       </section>
     </header>
     </>

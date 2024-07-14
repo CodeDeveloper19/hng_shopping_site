@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus_Jakarta_Sans, Poppins } from 'next/font/google';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ['500', '600'],
@@ -14,8 +15,6 @@ const poppins = Poppins({
 });
 
 export default function Checkout() {
-  let parsedData;
-
   const [cartItems, setCartItems] = useState([]);
   const [totalShippingCost, setTotalShippingCost] = useState(0);
   const [subtotal, setSubTotal] = useState(0);
@@ -33,7 +32,7 @@ export default function Checkout() {
         }
     } else {
         setCartItems([]);
-        updateCosts(0);
+        updateCosts(0, []);
     }
   }, []);
 
@@ -133,6 +132,14 @@ export default function Checkout() {
             <button type='submit' className={`${plus_jakarta_sans.className} my-[90px] w-full h-[60px] text-[12px] leading-[15px] text-white uppercase hover:bg-[#4A6B68] bg-[#31514D] font-[500]`}>APPLY A PROMO CODE OR DISCOUNT</button>
             <div className='flex flex-col'>
               <h2 className='font-[600] text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>CART SUMMARY</h2>
+              <button onClick={() => {
+                  setCartItems([]);
+                  updateCosts(0, []);
+                  localStorage.removeItem('homeAffairsCart');
+                }} className={`${plus_jakarta_sans.className} flex justify-center items-center text-[12px] leading-[15px] hover:bg-[#A52B2B] bg-[#740000] w-full max-w-[161px] h-[60px] text-white mb-[30px]`}>
+                <span className='mr-[8px]'><Image width={18} height={18} src={'/checkout/delete.svg'} alt='vector of a delete icon'/></span>
+                Clear Cart
+              </button>
               <p className='font-[600] text-[15px] leading-[23px] text-[#740000]'>Arrives in 2-5 days</p>
               {
                 cartItems.map((cartItem, index) => (
@@ -152,27 +159,16 @@ export default function Checkout() {
                         }
                       </ul>
                       <p className={`${poppins.className} font-[500] text-[#31514D] leading-[23px]`}>{`$${cartItem.price}`}<span className='text-black'>{` x ${cartItem.quantity}`}</span></p>
-                      <button onClick={() => removecartItem(cartItem.productName)} className='mt-[40px] leading-[23px] text-[#740000] hover:text-[#A52B2B]  font-[600]'>Remove</button>
+                      <button onClick={() => removecartItem(cartItem.productName)} className='mt-[40px] leading-[23px] text-[#740000] hover:text-[#A52B2B] font-[600]'>Remove</button>
                     </div>
                   </div>
                 ))
               }
-              {/* <div className='flex flex-col minTablet:flex-row justify-between mt-[20px] mb-[80px]'>
-                <div className='w-full minTablet:w-[48%] border-[1px] border-[#31514D] py-[20px]'>
-                  <div id='productImage' className={`relative w-full h-[250px] phone:h-[400px] minTablet:h-full`}>
-                    <Image fill src='/homepage/red_chair.png' className="object-contain" alt="image of a product" />
-                  </div>
-                </div>
-                <div className='w-full minTablet:w-[48%] text-[15px] mt-[50px] minTablet:mt-0'>
-                  <h2 className={`${plus_jakarta_sans.className} leading-[19px] text-black font-[600] uppercase`}>Toulouse fabric ROUND CHAIR</h2>
-                  <ul className={`${poppins.className} font-[500] text-black leading-[23px] my-[30px]`}>
-                    <li>Total height: 84 cm</li>
-                    <li>Total width: 48 cm</li>
-                  </ul>
-                  <p className={`${poppins.className} font-[500] text-[#31514D] leading-[23px]`}>$300 <span className='text-black'> x 1</span></p>
-                  <button className='mt-[40px] leading-[23px] text-[#740000] hover:text-[#A52B2B]  font-[600]'>Remove</button>
-                </div>
-              </div> */}
+              <div className={`${poppins.className} smartPhone:items-center mt-[20px] font-[600] flex flex-col smartPhone:flex-row w-full leading-[23px] underline text-[15px] text-[#740000]`}>
+                <Link href=''><p>Privacy Policy</p></Link>
+                <div className='bg-[#31514D] h-[12px] w-[1px] mx-[10px] hidden smartPhone:block'></div>
+                <Link className='mt-[10px] smartPhone:mt-0' href=''><p>Terms & Conditions</p></Link>
+              </div>
             </div>
           </div>
         </div>

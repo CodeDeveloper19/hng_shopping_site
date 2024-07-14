@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Poppins } from "next/font/google";
 import Product from "@/components/product";
+import Link from "next/link";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ['400', '600', '700'],
@@ -57,7 +58,7 @@ export default async function Home() {
           <div className=" relative w-fit h-fit flex flex-col items-center phone:min-h-[520px] py-[50px]">
             <h2 className="text-[35px] leading-[44.1px] text-[#31514D] max-w-[400px] minLaptop:max-w-[500px] laptop:max-w-[650px] normal:max-w-[762px] text-center font-[600]">We Transform Your Homes, One Furniture at a Time</h2>
             <button className="w-[161px] border-[1px] border-[#31514D] uppercase text-[#31514D] mt-[30px] text-[12px] leading-[15.12px] h-[60px] font-[600]">View More</button>
-            <div className="hidden phone:block w-[540px] tablet:w-[640px] minLaptop:w-[800px] h-[300px] tablet:h-[400px] minLaptop:h-[500px] absolute mt-[180px] tablet:mt-[100px] minLaptop:mt-[20px]">
+            <div className="hidden phone:block w-[500px] tablet:w-[640px] minLaptop:w-[800px] h-[300px] tablet:h-[400px] minLaptop:h-[500px] absolute mt-[180px] tablet:mt-[100px] minLaptop:mt-[20px]">
               <Image fill src="/homepage/couch.png" className="object-contain" alt="image of a couch" />
             </div>
             <div className="hidden phone:block w-[84px] tablet:w-[124px] minLaptop:w-[155px] h-[84px] tablet:h-[124px] minLaptop:h-[155px] absolute left-[-65px] tablet:left-[-150px] minLaptop:left-[-180px] laptop:left-[-105px] normal:left-[-50px] bottom-[20px]">
@@ -116,7 +117,9 @@ export default async function Home() {
           <div className="flex flex-col">
             <h2 className={`${plus_jakarta_sans.className} leading-[61.74px] text-[#000000] uppercase font-[400] text-[49px]`}><span className="text-[#740000]">50% </span>Discount</h2>
             <h3 className={`${poppins.className} uppercase text-[#740000] text-[73.26px] leading-[109.88px]`}>ROMEO RED SOFA</h3>
-            <button className={`${plus_jakarta_sans.className} font-[700] w-[161px] border-[1px] border-[#740000] uppercase text-[#740000] mt-[30px] text-[12px] leading-[15.12px] h-[60px]`}>Buy Now</button>
+            <Link href='/cart/591a1995b5a747cc89075072d9e10ba4_2099'>            
+              <button className={`${plus_jakarta_sans.className} font-[700] w-[161px] border-[1px] border-[#740000] uppercase text-[#740000] mt-[30px] text-[12px] leading-[15.12px] h-[60px]`}>Buy Now</button>
+            </Link>
           </div>
           <div className="w-[650px] h-[650px] absolute bottom-[70px] right-[-80px] hidden laptop:block">
             <Image fill src="/homepage/red_sofa.png" className="object-contain" alt="image of a red stofa" />
