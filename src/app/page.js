@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { Poppins } from "next/font/google";
 import Product from "@/components/product";
 import Link from "next/link";
+import ImageComponent from "@/components/image";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ['400', '600', '700'],
@@ -16,7 +17,7 @@ const poppins = Poppins({
 
 async function getData(number) {
   const res = await fetch(
-    `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=6184b8f87d2f4caead13337fea84c139&reverse_sort=false&Appid=S8GLLN23AENH8KZ&Apikey=48d28e6ce3f64e64ad46cc4e1c8cbafb20240712201541919159&page=${number}&size=8`,
+    `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=6184b8f87d2f4caead13337fea84c139&reverse_sort=false&Appid=S8GLLN23AENH8KZ&Apikey=48d28e6ce3f64e64ad46cc4e1c8cbafb20240712201541919159&page=${number}&size=10`,
   )
  
   if (!res.ok) {
@@ -29,25 +30,37 @@ async function getData(number) {
 export default async function Home() {
   const data = await getData(1);
 
-  const productComponents = data.items.map((product, index) => {
+  const productComponents = data.items.slice(0, 8).map((product, index) => {
     const imageUrl = product.photos.length > 0 ? `https://api.timbu.cloud/images/${product.photos[0].url}` : '';
     const price = product.current_price.length > 0 ? product.current_price[0].USD[0] : 0;
-
-    return(
+  
+    return (
       <Product
-      key={product.unique_id}
-      name={product.name}
-      productId={product.id}
-      price={price}
-      classNames='pt-[30px] laptop:pt-0'
-      imageLink={imageUrl} // Assuming the first image is the main image
-      shadowLink=''
-      productPaddingClass = ''
-      productImageHeightClass='h-[150px] phone:h-[270px]'
-      productShadowHeightClass='h-[50px] phone:h-[110px]'
+        key={product.unique_id}
+        name={product.name}
+        productId={product.id}
+        price={price}
+        classNames='pt-[30px] laptop:pt-0'
+        imageLink={imageUrl} // Assuming the first image is the main image
+        shadowLink=''
+        productPaddingClass=''
+        productImageHeightClass='h-[150px] phone:h-[270px]'
+        productShadowHeightClass='h-[50px] phone:h-[110px]'
       />
-    )
+    );
   });
+
+  const showCaseComponents = data.items.slice(-2).map((product, index) => {
+    const imageUrl = product.photos.length > 0 ? `https://api.timbu.cloud/images/${product.photos[0].url}` : '';
+    const price = product.current_price.length > 0 ? product.current_price[0].USD[0] : 0;
+    const productId = product.id
+  
+    return (
+      <ImageComponent linkUrl={`/cart/${productId}_${price}`} imageUrl={imageUrl} key={product.unique_id} />
+    );
+  });
+  
+  
   
 
   return (
@@ -133,13 +146,15 @@ export default async function Home() {
         <div className="w-full px-[50px] minTablet:px-[70px] pt-[80px] pb-[150px] max-w-[1440px]">
           <div className="grid grid-cols-1 minTablet:grid-cols-2 laptop:grid-cols-4 h-[1800px] minTablet:h-[900px] laptop:h-[400px]">
             <div className="bg-[#F1E3E2] relative">
-              <div className="absolute top-[-70px] w-full h-full">
-                <Image fill src="/homepage/vase.png" className="object-contain" alt="image of a cactus in a flower pot" />
-              </div>
+              {
+                showCaseComponents[0]
+              }
             </div>
             <div className="bg-[#B79971]"></div>
             <div className="bg-[#FAFAFA] relative">
-              <Image fill src="/homepage/white_sofa.png" className="object-contain transform scale-x-[-1]" alt="image of a cactus in a flower pot" />
+              {
+                showCaseComponents[1]
+              }
             </div>
             <div className="bg-[#D9D9D9]"></div>
           </div>

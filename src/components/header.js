@@ -59,7 +59,7 @@ export default function Header() {
             <li className='mt-[20px] minTablet:mt-0 mx-0 minTablet:mx-[30px] hover:border-b-[1px] border-[#31514D]'><Link href='/'>Contact Us</Link></li>
           </ul>
         </nav>
-        <Link href='/cart'> 
+        <Link href='/checkout'> 
           <button className='hover:opacity-[0.5] flex items-center relative'>
             <Image width={18} height={18} src='/header/cart_icon.svg' alt='cart icon'/>
             <div className='absolute rounded-full w-[12px] h-[12px] bg-[#FF0000] top-[-3px] right-[-3px] text-white text-[8px] justify-center items-center' style={{display: showCartNotification}}>

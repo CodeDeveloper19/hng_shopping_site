@@ -186,7 +186,8 @@ export default function ClientSidePage(props) {
                 <div className='grid grid-cols-1 minTablet:grid-cols-2 laptop:grid-cols-4 gap-5 mt-[40px]'>
                     <Product
                     name='OAK WOOD WALL CLOCK'
-                    price='$500.00'
+                    productId={'956e6073c350453f81c1befcb0bd58fb'}
+                    price='500'
                     classNames='pt-[30px] laptop:pt-0' 
                     imageLink='/homepage/wall_clock.png'
                     shadowLink='/homepage/wall_clock_shadow.png'
@@ -195,7 +196,8 @@ export default function ClientSidePage(props) {
                     />
                     <Product
                     name='ROUND ELM STOOL'
-                    price='$300.00'
+                    productId={'f1122f4d27e34cd384e8c681b7a23d88'}
+                    price='$300'
                     classNames='pt-[30px] laptop:pt-0' 
                     imageLink='/homepage/round_table.png'
                     shadowLink='/homepage/round_table_shadow.png'
@@ -204,7 +206,8 @@ export default function ClientSidePage(props) {
                     />
                     <Product
                     name='DINING SLIDE CHAIR'
-                    price='$225.06'
+                    productId={'b9fa233a0bb34eea88ddd1586e30b7bb'}
+                    price='225'
                     classNames='pt-[30px] laptop:pt-0' 
                     imageLink='/homepage/chair.png'
                     shadowLink='/homepage/chair_shadow.png'
@@ -213,7 +216,8 @@ export default function ClientSidePage(props) {
                     />
                     <Product
                     name='CHARLES STOOL'
-                    price='$299.00'
+                    productId={'22f2ad2a19f84e8d9720633e10da2f10'}
+                    price='299'
                     classNames='pt-[30px] laptop:pt-0' 
                     imageLink='/homepage/round_chair.png'
                     shadowLink='/homepage/round_chair_shadow.png'
