@@ -1,8 +1,9 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Plus_Jakarta_Sans, Poppins } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CartContext } from '@/components/cart_context';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ['500', '600'],
@@ -19,6 +20,8 @@ export default function Checkout() {
   const [totalShippingCost, setTotalShippingCost] = useState(0);
   const [subtotal, setSubTotal] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
+  const [[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification]] = useContext(CartContext);
+
 
   useEffect(() => {
     let storedData = localStorage.getItem('homeAffairsCart');
@@ -54,6 +57,10 @@ export default function Checkout() {
         // Create a new array excluding the item to be removed
         let newData = [...cartItems.slice(0, productIndex), ...cartItems.slice(productIndex + 1)];
         setCartItems(newData);
+        if(numberOfCartItems == 0){
+          setShowCartNotification('none');
+        }
+        setNumberOfCartItems(numberOfCartItems - 1);
         updateCosts(newData.length, newData);
         let updatedJsonData = JSON.stringify(newData);
         localStorage.setItem('homeAffairsCart', updatedJsonData);
@@ -134,6 +141,8 @@ export default function Checkout() {
               <h2 className='font-[600] text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>CART SUMMARY</h2>
               <button onClick={() => {
                   setCartItems([]);
+                  setShowCartNotification('none');
+                  setNumberOfCartItems(null);
                   updateCosts(0, []);
                   localStorage.removeItem('homeAffairsCart');
                 }} className={`${plus_jakarta_sans.className} flex justify-center items-center text-[12px] leading-[15px] hover:bg-[#A52B2B] bg-[#740000] w-full max-w-[161px] h-[60px] text-white mb-[30px]`}>

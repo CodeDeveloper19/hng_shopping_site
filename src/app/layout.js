@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { CartContextProvider } from "@/components/cart_context";
 
 export const metadata = {
   title: "Home Affairs",
@@ -12,9 +13,11 @@ export default function RootLayout({ children }) {
     <>
     <html lang="en">
     <body>
-      <Header/>
-      {children}
-      <Footer/>
+      <CartContextProvider>
+        <Header/>
+        {children}
+        <Footer/>
+      </CartContextProvider>
     </body>
     </html>
     </>

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CartContext } from './cart_context';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
     weight: '400',
@@ -18,8 +19,11 @@ const poppins = Poppins({
 
 export default function Header() {
   const [showNavLinks, setShowNavLinks] = useState('none');
-  const [numberOfCartItems, setNumberOfCartItems] = useState(null);
-  const [showCartNotification, setCartNotification] = useState('none');
+  // const [numberOfCartItems, setNumberOfCartItems] = useState(null);
+  // const [showCartNotification, setShowCartNotification] = useState('none');
+
+  const [[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification]] = useContext(CartContext);
+
 
   useEffect(() => {
     let storedData = localStorage.getItem('homeAffairsCart');
@@ -28,7 +32,7 @@ export default function Header() {
             let parsedData = JSON.parse(storedData);
             if(parsedData.length > 0){
               setNumberOfCartItems(parsedData.length);
-              setCartNotification('flex');
+              setShowCartNotification('flex');
             }
         } catch (error) {
             console.error("Error parsing JSON:", error);

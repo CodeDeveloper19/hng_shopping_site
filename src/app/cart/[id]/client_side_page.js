@@ -1,10 +1,11 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import Product from '@/components/product';
+import { CartContext } from '@/components/cart_context';
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
     weight: ['500', '600'],
@@ -17,7 +18,7 @@ const poppins = Poppins({
 });
 
 export default function ClientSidePage(props) {
-    const { data, price } = props;
+    const { data, price, allData } = props;
     const imageLink = `https://api.timbu.cloud/images/${data.photos[0].url}`;
     const guideDimensions = data.extra_infos[0].value.split('\n');
     const guideDimensionsItems = guideDimensions.map((guideDimension, index) => (
@@ -25,6 +26,8 @@ export default function ClientSidePage(props) {
     ));
 
     const [buyingQuantity, setBuyingQuantity] = useState(null);
+    const [randomItems, setRandomItems] = useState([]);
+    const [[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification]] = useContext(CartContext);
 
     useEffect(() => {
         let storedData = localStorage.getItem('homeAffairsCart');
@@ -46,7 +49,17 @@ export default function ClientSidePage(props) {
         } else {
             setBuyingQuantity(0);
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const getRandomItems = (arr, num) => {
+            const shuffled = arr.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, num);
+        };
+    
+        const randomEntries = getRandomItems(allData, 4);
+        setRandomItems(randomEntries);
+    }, [allData]);
 
     function increaseQuantity() {
         if(buyingQuantity < data.available_quantity) {
@@ -69,27 +82,27 @@ export default function ClientSidePage(props) {
                 try {
                     parsedData = JSON.parse(storedData);
     
-                // Check if the product name already exists in the cart
-                let existingProductIndex = parsedData.findIndex(item => {
-                    return item.productName === data.name;
-                });
-    
-                // If the product name is found, update its quantity
-                if (existingProductIndex !== -1) {
-                    parsedData[existingProductIndex].quantity = buyingQuantity;
-                } else {
-                    // Add the new product to the cart
-                    parsedData.push({
-                        'imageLink': imageLink,
-                        'productName': data.name,
-                        'guideDimensions': guideDimensions,
-                        'price': (price == 2049) ? price : 1049.5,
-                        'quantity': buyingQuantity
+                    // Check if the product name already exists in the cart
+                    let existingProductIndex = parsedData.findIndex(item => {
+                        return item.productName === data.name;
                     });
-                }
-                } catch (error) {
-                    console.error("Error parsing JSON:", error);
-                }
+    
+                    // If the product name is found, update its quantity
+                    if (existingProductIndex !== -1) {
+                        parsedData[existingProductIndex].quantity = buyingQuantity;
+                    } else {
+                        // Add the new product to the cart
+                        parsedData.push({
+                            'imageLink': imageLink,
+                            'productName': data.name,
+                            'guideDimensions': guideDimensions,
+                            'price': (price == 2049) ? price : 1049.5,
+                            'quantity': buyingQuantity
+                        });
+                    }
+                    } catch (error) {
+                        console.error("Error parsing JSON:", error);
+                    }
             } else {
                 // If no stored data, initialize with the new product
                 parsedData = [{
@@ -100,7 +113,9 @@ export default function ClientSidePage(props) {
                     'quantity': buyingQuantity
                 }];
             }
-    
+
+            setShowCartNotification('flex');
+            setNumberOfCartItems(numberOfCartItems + 1);
             // Update localStorage with the updated cart data
             let updatedJsonData = JSON.stringify(parsedData);
             localStorage.setItem('homeAffairsCart', updatedJsonData);
@@ -184,46 +199,27 @@ export default function ClientSidePage(props) {
                 <div className='w-full max-w-[1440px] px-[50px] minTablet:px-[70px] flex flex-col'>
                 <h2 className={`${plus_jakarta_sans.className} leading-[49px] text-[39px] text-black font-[500]`}>YOU MIGHT ALSO LIKE</h2>
                 <div className='grid grid-cols-1 minTablet:grid-cols-2 laptop:grid-cols-4 gap-5 mt-[40px]'>
-                    <Product
-                    name='OAK WOOD WALL CLOCK'
-                    productId={'956e6073c350453f81c1befcb0bd58fb'}
-                    price='500'
-                    classNames='pt-[30px] laptop:pt-0' 
-                    imageLink='/homepage/wall_clock.png'
-                    shadowLink='/homepage/wall_clock_shadow.png'
-                    productImageHeightClass='h-[150px] phone:h-[270px]'
-                    productShadowHeightClass='h-[50px] phone:h-[110px]'
-                    />
-                    <Product
-                    name='ROUND ELM STOOL'
-                    productId={'f1122f4d27e34cd384e8c681b7a23d88'}
-                    price='$300'
-                    classNames='pt-[30px] laptop:pt-0' 
-                    imageLink='/homepage/round_table.png'
-                    shadowLink='/homepage/round_table_shadow.png'
-                    productImageHeightClass='h-[150px] phone:h-[270px]'
-                    productShadowHeightClass='h-[50px] phone:h-[110px]'
-                    />
-                    <Product
-                    name='DINING SLIDE CHAIR'
-                    productId={'b9fa233a0bb34eea88ddd1586e30b7bb'}
-                    price='225'
-                    classNames='pt-[30px] laptop:pt-0' 
-                    imageLink='/homepage/chair.png'
-                    shadowLink='/homepage/chair_shadow.png'
-                    productImageHeightClass='h-[150px] phone:h-[270px]'
-                    productShadowHeightClass='h-[50px] phone:h-[110px]'
-                    />
-                    <Product
-                    name='CHARLES STOOL'
-                    productId={'22f2ad2a19f84e8d9720633e10da2f10'}
-                    price='299'
-                    classNames='pt-[30px] laptop:pt-0' 
-                    imageLink='/homepage/round_chair.png'
-                    shadowLink='/homepage/round_chair_shadow.png'
-                    productImageHeightClass='h-[150px] phone:h-[270px]'
-                    productShadowHeightClass='h-[50px] phone:h-[110px]'
-                    />
+                    {
+                        randomItems.map((randomItem, index) => {
+                            const imageUrl = randomItem.photos.length > 0 ? `https://api.timbu.cloud/images/${randomItem.photos[0].url}` : '';
+                            const price = randomItem.current_price.length > 0 ? randomItem.current_price[0].USD[0] : 0;
+                            const productId = randomItem.id
+
+                            return(
+                                <Product
+                                key={randomItem.unique_id}
+                                name={randomItem.name}
+                                productId={productId}
+                                price={price}
+                                classNames='pt-[30px] laptop:pt-0' 
+                                imageLink={imageUrl}
+                                // shadowLink='/homepage/wall_clock_shadow.png'
+                                productImageHeightClass='h-[150px] phone:h-[270px]'
+                                productShadowHeightClass='h-[50px] phone:h-[110px]'
+                                />                            
+                            )
+                        })
+                    }
                 </div>
                 </div>
             </div>
