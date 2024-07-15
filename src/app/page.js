@@ -17,7 +17,7 @@ const poppins = Poppins({
 
 async function getData(number) {
   const res = await fetch(
-    `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=6184b8f87d2f4caead13337fea84c139&reverse_sort=false&Appid=S8GLLN23AENH8KZ&Apikey=48d28e6ce3f64e64ad46cc4e1c8cbafb20240712201541919159&page=${number}&size=10`,
+    `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=${process.env.NEXT_PUBLIC_ORGANIZATION_ID}&reverse_sort=false&Appid=${process.env.NEXT_PUBLIC_APP_ID}&Apikey=${process.env.NEXT_PUBLIC_API_KEY}&page=1&size=30`,
   )
  
   if (!res.ok) {
@@ -27,8 +27,18 @@ async function getData(number) {
   return res.json()
 }
 
+function chunkArray(array, chunkSize) {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+      chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
 export default async function Home() {
-  const data = await getData(1);
+  const data = await getData();
+  const chunkedArrays = chunkArray(data.items, 8);
+  console.log(chunkedArrays);
 
   const productComponents = data.items.slice(0, 8).map((product, index) => {
     const imageUrl = product.photos.length > 0 ? `https://api.timbu.cloud/images/${product.photos[0].url}` : '';

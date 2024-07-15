@@ -3,9 +3,10 @@ import React from 'react';
 import ClientSidePage from './client_side_page';
 
 async function getData(productId) {
-    const res = await fetch(
-      `https://timbu-get-single-product.reavdev.workers.dev/${productId}?organization_id=6184b8f87d2f4caead13337fea84c139&Appid=S8GLLN23AENH8KZ&Apikey=48d28e6ce3f64e64ad46cc4e1c8cbafb20240712201541919159`,
-    );
+  const res = await fetch(
+    `https://timbu-get-single-product.reavdev.workers.dev/${productId}?organization_id=${process.env.NEXT_PUBLIC_ORGANIZATION_ID}&Appid=${process.env.NEXT_PUBLIC_APP_ID}&Apikey=${process.env.NEXT_PUBLIC_API_KEY}`,
+  );
+  
 
     if (!res.ok) {
       throw new Error('Failed to fetch data')
@@ -16,9 +17,9 @@ async function getData(productId) {
 
   async function getAllData() {
     const res = await fetch(
-      `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=6184b8f87d2f4caead13337fea84c139&reverse_sort=false&Appid=S8GLLN23AENH8KZ&Apikey=48d28e6ce3f64e64ad46cc4e1c8cbafb20240712201541919159&page=1&size=30`,
-    );
-
+      `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=${process.env.NEXT_PUBLIC_ORGANIZATION_ID}&reverse_sort=false&Appid=${process.env.NEXT_PUBLIC_APP_ID}&Apikey=${process.env.NEXT_PUBLIC_API_KEY}&page=1&size=30`,
+    )
+    
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }
