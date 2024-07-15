@@ -19,11 +19,7 @@ const poppins = Poppins({
 
 export default function Header() {
   const [showNavLinks, setShowNavLinks] = useState('none');
-  // const [numberOfCartItems, setNumberOfCartItems] = useState(null);
-  // const [showCartNotification, setShowCartNotification] = useState('none');
-
   const [[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification]] = useContext(CartContext);
-
 
   useEffect(() => {
     let storedData = localStorage.getItem('homeAffairsCart');
