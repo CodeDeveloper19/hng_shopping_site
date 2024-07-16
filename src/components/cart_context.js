@@ -8,7 +8,7 @@ const CartContextProvider = ({ children }) => {
     const [showCartNotification, setShowCartNotification] = useState('none');
 
   return (
-    <CartContext.Provider value={[ [numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification] ]}>
+    <CartContext.Provider value={[[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification] ]}>
       {children}
     </CartContext.Provider>
   );

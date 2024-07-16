@@ -57,7 +57,7 @@ export default function Checkout() {
         // Create a new array excluding the item to be removed
         let newData = [...cartItems.slice(0, productIndex), ...cartItems.slice(productIndex + 1)];
         setCartItems(newData);
-        if(numberOfCartItems == 0){
+        if(numberOfCartItems == 1){
           setShowCartNotification('none');
         }
         setNumberOfCartItems(numberOfCartItems - 1);

@@ -16,7 +16,7 @@ export default class Product extends Component {
 
     return (
       <>
-        <Link href={`/cart/${productId}_${price}`} className={`${poppins.className} ${classNames} border-[1px] border-[#31514D] grid flex-col px-[20px] pb-[50px] h-fit min-h-full`}>
+        <Link href={`/products/${productId}_${price}`} className={`${poppins.className} ${classNames} border-[1px] border-[#31514D] grid flex-col px-[20px] pb-[50px] h-fit min-h-full`}>
           <div className={`h-fit w-full ${productPaddingClass} my-auto overflow-hidden`}>
             <div id='productImage' className={`relative w-full ${productImageHeightClass} z-10`}>
                 <Image unoptimized loader={() => imageLink} fill src={imageLink} className="object-contain" alt="image of a product" />

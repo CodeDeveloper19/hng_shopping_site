@@ -73,7 +73,7 @@ export default function Home() {
     const productId = product.id
   
     return (
-      <ImageComponent linkUrl={`/cart/${productId}_${price}`} imageUrl={imageUrl} key={product.unique_id} />
+      <ImageComponent linkUrl={`/products/${productId}_${price}`} imageUrl={imageUrl} key={product.unique_id} />
     );
   });
 
@@ -169,7 +169,7 @@ export default function Home() {
           <div className="flex flex-col">
             <h2 className={`${plus_jakarta_sans.className} leading-[61.74px] text-[#000000] uppercase font-[400] text-[49px]`}><span className="text-[#740000]">50% </span>Discount</h2>
             <h3 className={`${poppins.className} uppercase text-[#740000] text-[73.26px] leading-[109.88px]`}>ROMEO RED SOFA</h3>
-            <Link href='/cart/591a1995b5a747cc89075072d9e10ba4_2099'>            
+            <Link href='/products/591a1995b5a747cc89075072d9e10ba4_2099'>            
               <button className={`${plus_jakarta_sans.className} font-[700] w-[161px] border-[1px] border-[#740000] uppercase text-[#740000] mt-[30px] text-[12px] leading-[15.12px] h-[60px]`}>Buy Now</button>
             </Link>
           </div>
