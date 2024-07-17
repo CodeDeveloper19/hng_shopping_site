@@ -20,7 +20,7 @@ const poppins = Poppins({
 
 async function getAllData() {
   const res = await fetch(
-    `https://timbu-get-all-products.reavdev.workers.dev/?organization_id=${process.env.NEXT_PUBLIC_ORGANIZATION_ID}&reverse_sort=false&Appid=${process.env.NEXT_PUBLIC_APP_ID}&Apikey=${process.env.NEXT_PUBLIC_API_KEY}&page=1&size=30`,
+    `http://localhost:3001/proxy/all`
   )
   
   if (!res.ok) {
