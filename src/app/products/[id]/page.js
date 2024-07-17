@@ -4,7 +4,7 @@ import ClientSidePage from './client_side_page';
 
 async function getData(productId) {
   const res = await fetch(
-    `http://localhost:3001/proxy/single/${productId}`
+    `https://hng-shopping-site.onrender.com/proxy/single/${productId}`
   );
   
 
@@ -17,7 +17,7 @@ async function getData(productId) {
 
   async function getAllData() {
     const res = await fetch(
-      `http://localhost:3001/proxy/all`
+      `https://hng-shopping-site.onrender.com/proxy/all`
     )
     
     if (!res.ok) {

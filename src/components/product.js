@@ -19,7 +19,7 @@ export default class Product extends Component {
         <Link href={`/products/${productId}_${price}`} className={`${poppins.className} ${classNames} border-[1px] border-[#31514D] grid flex-col px-[20px] pb-[50px] h-fit min-h-full`}>
           <div className={`h-fit w-full ${productPaddingClass} my-auto overflow-hidden`}>
             <div id='productImage' className={`relative w-full ${productImageHeightClass} z-10`}>
-                <Image unoptimized loader={() => imageLink} fill src={imageLink} className="object-contain" alt="image of a product" />
+                <Image unoptimized loader={() => imageLink} fill src={imageLink} className="object-contain w-auto h-auto" alt="image of a product" />
             </div>
             {/* <div id='productImageShadow' className={`absolute bottom-0 w-[100%] ${productShadowHeightClass} left-0 z-0`}>
                 <Image fill src={shadowLink} className="object-contain" alt="image of a product's shadow" />

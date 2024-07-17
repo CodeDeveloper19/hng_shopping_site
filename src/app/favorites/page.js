@@ -19,7 +19,7 @@ const poppins = Poppins({
 
 async function getAllData() {
   const res = await fetch(
-    `http://localhost:3001/proxy/all`
+    `https://hng-shopping-site.onrender.com/proxy/all`
   )
   
   if (!res.ok) {

@@ -71,7 +71,6 @@ export default function ClientSidePage(props) {
     function retrieveFavorites() {
         let storedData = localStorage.getItem('homeAffairsFavorites');
         let parsedData;
-        console.log(storedData);
         if (storedData) {
             try {
                 parsedData = JSON.parse(storedData);
