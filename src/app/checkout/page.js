@@ -20,7 +20,23 @@ export default function Checkout() {
   const [totalShippingCost, setTotalShippingCost] = useState(0);
   const [subtotal, setSubTotal] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationIcon, setNotificationIcon] = useState('');
   const [[numberOfCartItems, setNumberOfCartItems], [showCartNotification, setShowCartNotification]] = useContext(CartContext);
+
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    streetAddress: '',
+    apartmentSuite: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    isGift: false
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
 
 
   useEffect(() => {
@@ -44,7 +60,6 @@ export default function Checkout() {
     const productsCost = data.reduce((accumulator, product) => {
       return accumulator + (product.price * product.quantity);
     }, 0);
-    // let productsCost = 0;
     let allCost = shippingCost + productsCost;
     setTotalShippingCost(shippingCost);
     setTotalCost(allCost);
@@ -66,6 +81,31 @@ export default function Checkout() {
         localStorage.setItem('homeAffairsCart', updatedJsonData);
     }
 }
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [id]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const requiredFields = ['firstName', 'lastName', 'streetAddress', 'city', 'state', 'postalCode'];
+
+    for (let field of requiredFields) {
+      if (!formData[field]) {
+        setNotificationMessage('Cannot process checkout. Please fill in all required fields');
+        setNotificationIcon('/error.gif');
+        setShowNotification(true);
+        return;
+      }
+    }
+      setNotificationMessage('Your checkout has been processed successfully');
+      setNotificationIcon('/done.gif');
+      setShowNotification(true);
+      setFormData(initialFormData);
+  };
 
 
   return (
@@ -75,56 +115,56 @@ export default function Checkout() {
         <div className='flex flex-col w-full minLaptop:w-[60%]'>
           <h1 className={`${plus_jakarta_sans.className} font-[600] uppercase leading-[39px] text-[49px] text-black`}>SHIPPING</h1>
           <h2 className={`${poppins.className} font-[600] text-[20px] text-[#31514D] uppercase leadimg-[30px] mt-[50px] mb-[30px]`}>SHIPPING ADDRESS</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className='flex flex-col phone:flex-row justify-between w-full'>
-              <input type='text' placeholder='First Name' id='firstName' className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
-              <input type='text' placeholder='Last Name' id='lastName' className={`${poppins.className} phone:mt-0  mt-[25px] font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
+              <input type='text' placeholder='First Name' id='firstName' value={formData.firstName} onChange={handleChange} className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
+              <input type='text' placeholder='Last Name' id='lastName' value={formData.lastName} onChange={handleChange} className={`${poppins.className} phone:mt-0 mt-[25px] font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
             </div>
-            <input type='address' placeholder='Street Address' id='streetAddress' className={`${poppins.className} font-[600] mt-[25px] w-full h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
-            <input type='text' placeholder='Apt, Suite' id='apartmentSuite' className={`${poppins.className} font-[600] mt-[25px] w-full h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
+            <input type='text' placeholder='Street Address' id='streetAddress' value={formData.streetAddress} onChange={handleChange} className={`${poppins.className} font-[600] mt-[25px] w-full h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
+            <input type='text' placeholder='Apt, Suite' id='apartmentSuite' value={formData.apartmentSuite} onChange={handleChange} className={`${poppins.className} font-[600] mt-[25px] w-full h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
             <div className='flex flex-col phone:flex-row justify-between w-full mt-[25px]'>
-              <input type='text' placeholder='City' id='city' className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
-              <input type='text' placeholder='State' id='state' className={`${poppins.className} mt-[25px] phone:mt-0 font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
+              <input type='text' placeholder='City' id='city' value={formData.city} onChange={handleChange} className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
+              <input type='text' placeholder='State' id='state' value={formData.state} onChange={handleChange} className={`${poppins.className} mt-[25px] phone:mt-0 font-[600] w-full phone:w-[48.5%] h-[60px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
             </div>
-            <input type='text' placeholder='Postal Code' id='postaCode' className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] mt-[25px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`}/>
+            <input type='text' placeholder='Postal Code' id='postalCode' value={formData.postalCode} onChange={handleChange} className={`${poppins.className} font-[600] w-full phone:w-[48.5%] h-[60px] mt-[25px] border-[1px] border-[#31514D] outline-none leading-[18px] px-[20px] text-[#31514D] text-[12px]`} />
             <div className={`${poppins.className} w-full flex flex-col my-[80px]`}>
-            <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>SHIPPING METHOD</h2>
-            <p className='text-[#00000] text-[15px] leading-[23px]'>Enter a shipping address to see accurate shipping options for your order</p>
-          </div>
-          <div className={`${poppins.className} font-[600] w-full flex flex-col`}>
-            <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[20px]'>GIFT OPTIONS</h2>
-            <div className='flex flex-row'>
-              <input type='checkbox' className='w-[31px] h-[31px'></input>
-              <p className='text-[15px] text-black leading-[23px] ml-[20px] capitalize'>This is a gift</p>
+              <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>SHIPPING METHOD</h2>
+              <p className='text-[#00000] text-[15px] leading-[23px]'>Enter a shipping address to see accurate shipping options for your order</p>
             </div>
-          </div>
-          <button type='submit' className={`${plus_jakarta_sans.className} mt-[80px] w-full phone:w-[48.5%] h-[60px] text-[12px] leading-[15px] text-white uppercase hover:bg-[#4A6B68] bg-[#31514D] font-[500]`}>CONTINUE</button>
-          <div className={`${poppins.className} flex flex-col mt-[80px]`}>
-            <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>PAYMENT METHOD</h2>
-            <div className='w-full border-[1px] border-[#31514D] flex flex-col minTablet:flex-row justify-between px-[25px] py-[30px]'>
-              <div className='flex flex-col text-black'>
-                <h3 className='text-[15px] leading-[23px] font-[600]'>Credit Card</h3>
-                <p className='text-[12px] leading-[18px] font-[500]'>Secure and encrypted</p>
-              </div>
-              <div className='flex flex-col phone:flex-row mt-[30px] minTablet:mt-0'>
-                <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
-                  <Image fill src='/checkout/paypal.svg' alt='paypal icon'/>
-                </button>
-                <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
-                  <Image fill src='/checkout/mastercard.svg' alt='mastercard icon'/>
-                </button>
-                <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
-                  <Image fill src='/checkout/googlepay.svg' alt='google pay icon'/>
-                </button>
-                <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
-                  <Image fill src='/checkout/applepay.svg' alt='apple pay icon'/>
-                </button>
-                <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px]'>
-                  <Image fill src='/checkout/visa.svg' alt='visa icon'/>
-                </button>
+            <div className={`${poppins.className} font-[600] w-full flex flex-col`}>
+              <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[20px]'>GIFT OPTIONS</h2>
+              <div className='flex flex-row'>
+                <input type='checkbox' id='isGift' checked={formData.isGift} onChange={handleChange} className='w-[31px] h-[31px]' />
+                <p className='text-[15px] text-black leading-[23px] ml-[20px] capitalize'>This is a gift</p>
               </div>
             </div>
-          </div>
+            <button type='submit' className={`${plus_jakarta_sans.className} mt-[80px] w-full phone:w-[48.5%] h-[60px] text-[12px] leading-[15px] text-white uppercase hover:bg-[#4A6B68] bg-[#31514D] font-[500]`}>CONTINUE</button>
+            <div className={`${poppins.className} flex flex-col mt-[80px]`}>
+              <h2 className='text-[20px] text-[#31514D] uppercase leadimg-[30px] mb-[30px]'>PAYMENT METHOD</h2>
+              <div className='w-full border-[1px] border-[#31514D] flex flex-col minTablet:flex-row justify-between px-[25px] py-[30px]'>
+                <div className='flex flex-col text-black'>
+                  <h3 className='text-[15px] leading-[23px] font-[600]'>Credit Card</h3>
+                  <p className='text-[12px] leading-[18px] font-[500]'>Secure and encrypted</p>
+                </div>
+                <div className='flex flex-col phone:flex-row mt-[30px] minTablet:mt-0'>
+                  <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
+                    <Image fill src='/checkout/paypal.svg' alt='paypal icon' />
+                  </button>
+                  <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
+                    <Image fill src='/checkout/mastercard.svg' alt='mastercard icon' />
+                  </button>
+                  <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
+                    <Image fill src='/checkout/googlepay.svg' alt='google pay icon' />
+                  </button>
+                  <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px] mr-[10px]'>
+                    <Image fill src='/checkout/applepay.svg' alt='apple pay icon' />
+                  </button>
+                  <button className='mt-[20px] phone:mt-0 relative w-[50px] h-[34.32px]'>
+                    <Image fill src='/checkout/visa.svg' alt='visa icon' />
+                  </button>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
         <div className='hidden minLaptop:block w-[1px] bg-[#31514D] mx-[20px]'></div>
@@ -183,6 +223,24 @@ export default function Checkout() {
         </div>
       </div>
     </section>
+    <section className="notification fixed justify-center w-full h-full z-30 top-0" style={{display : (showNotification) ? 'flex' : 'none'}}>
+      <div className="relative mx-[15px] justify-around px-[15px] py-auto top-[50px] h-[90px] w-[420px] border-[1px] border-white/[.3] rounded-[20px] flex flex-row items-center z-10" style={{backgroundColor: (notificationIcon === '/done.gif' ? 'rgb(152, 251, 152)' : 'rgb(251, 206, 177)')}}>
+          <div className="w-fit h-[80px] flex items-center justify-center">
+              <div className="w-[40px] h-[40px] relative">
+                  <Image fill className="object-cover" alt="notification icon" src={notificationIcon}/>
+              </div>
+          </div>
+          <div className="flex flex-col w-[70%] h-fit text-[#191970]">
+              <h5 id="error-message" className="text-[13px] font-[400]">{notificationMessage}</h5>
+          </div>
+          <button className="w-fit flex justify-center items-center ml-[5px]" onClick={() => {setShowNotification(false)}}>
+              <div className="w-[15px] h-[15px] relative">
+                  <Image fill className="object-cover" alt="close_icon" src='/close.svg'/>
+              </div>                       
+          </button>
+      </div>
+      <div className="bg-black opacity-[0.6] absolute w-full h-full top-0"></div>
+      </section>
     </>
   )
 }

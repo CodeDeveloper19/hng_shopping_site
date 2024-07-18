@@ -307,9 +307,9 @@ export default function ClientSidePage(props) {
                     </div>
                 </div>
             </section>
-            <section className="notification fixed justify-center w-full h-screen z-30 top-0" style={{display : (showNotification) ? 'flex' : 'none'}}>
-                    <div className="relative py-[15px] top-[50px] h-fit min-h-[80px] w-full max-w-[420px] border-[1px] border-white/[.3] rounded-[20px] flex flex-row items-center z-10 bg-[#98FB98]">
-                        <div className="w-[20%] h-[80px] flex items-center justify-center">
+            <section className="notification fixed justify-center w-full h-full z-30 top-0" style={{display : (showNotification) ? 'flex' : 'none'}}>
+                    <div className="relative mx-[15px] justify-around px-[15px] py-auto top-[50px] h-[90px] w-[420px] border-[1px] border-white/[.3] rounded-[20px] flex flex-row items-center z-10 bg-[#98FB98]">
+                        <div className="w-fit h-[80px] flex items-center justify-center">
                             <div className="w-[40px] h-[40px] relative">
                                 <Image fill className="object-cover" alt="notification_icon" src='/done.gif'/>
                             </div>
@@ -317,7 +317,7 @@ export default function ClientSidePage(props) {
                         <div className="flex flex-col w-[70%] h-fit text-[#191970]">
                             <h5 id="error-message" className="text-[13px] font-[400]">{notificationMessage}</h5>
                         </div>
-                        <button className="w-fit flex justify-center items-center" onClick={() => {setShowNotification(false)}}>
+                        <button className="w-fit flex justify-center items-center ml-[5px]" onClick={() => {setShowNotification(false)}}>
                             <div className="w-[15px] h-[15px] relative">
                                 <Image fill className="object-cover" alt="close_icon" src='/close.svg'/>
                             </div>                       

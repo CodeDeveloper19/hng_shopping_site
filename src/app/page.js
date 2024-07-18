@@ -6,6 +6,7 @@ import Product from "@/components/product";
 import Link from "next/link";
 import ImageComponent from "@/components/image";
 import { useState, useEffect } from "react";
+import Script from "next/script";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   weight: ['400', '600', '700'],
@@ -50,7 +51,26 @@ export default function Home() {
   }, []);
 
   if (!data) {
-    return <div className="h-[500px]"></div>;
+    return(
+      <>  
+      <Script 
+        strategy="afterInteractive" 
+        src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+      />
+      <div className="pb-[50px] min-h-[250px]">
+        <lottie-player 
+            src="https://lottie.host/c95370e7-ba2b-4269-ac39-dedfe12f6fea/BvYi2yapGz.json"
+            background="##ffffff"
+            speed="1"
+            style={{ width: '200px', height: '200px' }}
+            loop
+            autoplay
+            direction="1"
+            mode="normal"
+          ></lottie-player>
+      </div>
+      </>
+    )
   }
 
   const chunkedArrays = chunkArray(data.items, 8);

@@ -9,4 +9,5 @@ body{
   width: 100%;
   min-width: fit-content;
   overflow-x: auto;
+  position: relative;
 }

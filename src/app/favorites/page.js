@@ -83,30 +83,42 @@ export default function Favorites() {
       <div className='w-full flex justify-center'>
         <div className='w-full max-w-[1440px] px-[50px] minTablet:px-[70px] pb-[100px] flex flex-col'>
           {
-            favoriteItems.map((cartItem, index) => (
-              <div key={index} className='flex flex-col minTablet:flex-row mt-[20px] mb-[80px] w-fit'>
-                <div className='minTablet:mr-[50px] w-[200px] border-[1px] border-[#31514D] py-[20px] h-fit'>
-                  <div id='productImage' className={`relative w-full h-[150px]`}>
-                    <Image unoptimized loader={() => cartItem.imageLink} fill src={cartItem.imageLink} className="object-contain" alt="image of a product" />
+            (favoriteItems.length !== 0) ?
+            (            
+              favoriteItems.map((cartItem, index) => (
+                <div key={index} className='flex flex-col minTablet:flex-row mt-[20px] mb-[80px] w-fit'>
+                  <div className='minTablet:mr-[50px] w-[200px] border-[1px] border-[#31514D] py-[20px] h-fit'>
+                    <div id='productImage' className={`relative w-full h-[150px]`}>
+                      <Image unoptimized loader={() => cartItem.imageLink} fill src={cartItem.imageLink} className="object-contain" alt="image of a product" />
+                    </div>
+                  </div>
+                  <div className='w-full minTablet:w-fit text-[15px] mt-[50px] minTablet:mt-0'>
+                    <h2 className={`${plus_jakarta_sans.className} leading-[19px] text-black font-[600] uppercase`}>{cartItem.productName}</h2>
+                    <ul className={`${poppins.className} font-[500] text-black leading-[23px] my-[30px]`}>
+                      {
+                        cartItem.guideDimensions.map((guideDimension, index) => (
+                            <li key={index}>{guideDimension}</li>
+                        ))
+                      }
+                    </ul>
+                    <div className='flex flex-col smartPhone:flex-row items-start'>
+                      <p className={`${poppins.className} font-[500] text-[#31514D] leading-[23px]`}>{`$${cartItem.price}`}</p>
+                      <button onClick={() => removeFavoriteItem(cartItem.productName)} className='mt-[10px] smartPhone:mt-0 smartPhone:ml-[20px] leading-[23px] text-[#740000] hover:text-[#A52B2B] font-[600]'>Remove From Favorites</button>
+                      <Link href={cartItem.productLink}><button className='mt-[10px] smartPhone:mt-0 smartPhone:ml-[20px] leading-[23px] text-[#740000] hover:text-[#A52B2B] font-[600]'>View Product</button></Link>
+                    </div>
                   </div>
                 </div>
-                <div className='w-full minTablet:w-fit text-[15px] mt-[50px] minTablet:mt-0'>
-                  <h2 className={`${plus_jakarta_sans.className} leading-[19px] text-black font-[600] uppercase`}>{cartItem.productName}</h2>
-                  <ul className={`${poppins.className} font-[500] text-black leading-[23px] my-[30px]`}>
-                    {
-                      cartItem.guideDimensions.map((guideDimension, index) => (
-                          <li key={index}>{guideDimension}</li>
-                      ))
-                    }
-                  </ul>
-                  <div className='flex flex-col smartPhone:flex-row items-start'>
-                    <p className={`${poppins.className} font-[500] text-[#31514D] leading-[23px]`}>{`$${cartItem.price}`}</p>
-                    <button onClick={() => removeFavoriteItem(cartItem.productName)} className='mt-[10px] smartPhone:mt-0 smartPhone:ml-[20px] leading-[23px] text-[#740000] hover:text-[#A52B2B] font-[600]'>Remove From Favorites</button>
-                    <Link href={cartItem.productLink}><button className='mt-[10px] smartPhone:mt-0 smartPhone:ml-[20px] leading-[23px] text-[#740000] hover:text-[#A52B2B] font-[600]'>View Product</button></Link>
-                  </div>
+            )))
+            :
+            (
+              <div className='w-full flex flex-col items-center mt-[20px] mb-[80px]'>
+                <div className='relative w-[100px] h-[100px]'>
+                  <Image fill className='' src='/favorite_items.svg'/>
                 </div>
+                <h2 className={`${poppins.className} font-[600] my-[10px] text-[14px]`}>Your favourite list is empty</h2>
+                <h2 className={`${poppins.className} font-[400] text-[12px] max-w-[350px] text-center`}>Looks like you haven't added anything to your favorite list. Go ahead and explore our fascinating products.</h2>
               </div>
-            ))
+            )
           }
           <div className={`${plus_jakarta_sans.className} font-[600] flex flex-col minTablet:flex-row justify-between mt-[30px]`}>
               <button onClick={() => {
