@@ -116,7 +116,7 @@ export default function Cart() {
                   <Image alt='illustration of an empty cart' fill src='/empty_cart.svg'/>
                 </div>
                 <h2 className={`${poppins.className} font-[600] my-[10px] text-[14px]`}>Your cart is empty</h2>
-                <h2 className={`${poppins.className} font-[400] text-[12px] max-w-[350px] text-center`}>Looks like you haven't added anything to your cart. Go ahead and explore our fascinating products.</h2>
+                <h2 className={`${poppins.className} font-[400] text-[12px] max-w-[350px] text-center`}>Looks like you haven&apos;t added anything to your cart. Go ahead and explore our fascinating products.</h2>
               </div>
             )
           }

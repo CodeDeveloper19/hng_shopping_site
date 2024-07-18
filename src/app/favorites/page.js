@@ -116,7 +116,7 @@ export default function Favorites() {
                   <Image alt='illustration of favorite list' fill src='/favorite_items.svg'/>
                 </div>
                 <h2 className={`${poppins.className} font-[600] my-[10px] text-[14px]`}>Your favourite list is empty</h2>
-                <h2 className={`${poppins.className} font-[400] text-[12px] max-w-[350px] text-center`}>Looks like you haven't added anything to your favorite list. Go ahead and explore our fascinating products.</h2>
+                <h2 className={`${poppins.className} font-[400] text-[12px] max-w-[350px] text-center`}>Looks like you haven&apos;t added anything to your favorite list. Go ahead and explore our fascinating products.</h2>
               </div>
             )
           }
