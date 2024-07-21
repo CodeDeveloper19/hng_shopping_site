@@ -105,6 +105,10 @@ export default function Checkout() {
       setNotificationIcon('/done.gif');
       setShowNotification(true);
       setFormData(initialFormData);
+      setShowCartNotification('none');
+      setNumberOfCartItems(null);
+      setCartItems([]);
+      localStorage.removeItem('homeAffairsCart');
   };
 
 

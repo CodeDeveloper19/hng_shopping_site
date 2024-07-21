@@ -1,3 +1,5 @@
 {
-    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "eslint.format.enable": true,
+    "eslint.ignoreUntitled": true
 }

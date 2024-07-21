@@ -56,7 +56,30 @@ export default function ClientSidePage(props) {
             setBuyingQuantity(0);
         }
         retrieveFavorites();
-    }, []);
+
+        function retrieveFavorites() {
+            let storedData = localStorage.getItem('homeAffairsFavorites');
+            let parsedData;
+            if (storedData) {
+                try {
+                    parsedData = JSON.parse(storedData);
+                    let existingProductIndex = parsedData.findIndex(item => {
+                        return item.productName === data.name;
+                    });
+    
+                    if (existingProductIndex !== -1) {
+                        setIsFavorite(true);
+                    } else {
+                        setIsFavorite(false)
+                    }
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                }
+            } else {
+                setIsFavorite(false);
+            }
+        }
+    }, [data.name]);
 
     useEffect(() => {
         const getRandomItems = (arr, num) => {
@@ -67,29 +90,6 @@ export default function ClientSidePage(props) {
         const randomEntries = getRandomItems(allData, 4);
         setRandomItems(randomEntries);
     }, [allData]);
-
-    function retrieveFavorites() {
-        let storedData = localStorage.getItem('homeAffairsFavorites');
-        let parsedData;
-        if (storedData) {
-            try {
-                parsedData = JSON.parse(storedData);
-                let existingProductIndex = parsedData.findIndex(item => {
-                    return item.productName === data.name;
-                });
-
-                if (existingProductIndex !== -1) {
-                    setIsFavorite(true);
-                } else {
-                    setIsFavorite(false)
-                }
-            } catch (error) {
-                console.error("Error parsing JSON:", error);
-            }
-        } else {
-            setIsFavorite(false);
-        }
-    }
 
     function increaseQuantity() {
         if(buyingQuantity < data.available_quantity) {
@@ -274,7 +274,12 @@ export default function ClientSidePage(props) {
                         </div>
                         <div className={`${plus_jakarta_sans.className} font-[600] flex flex-col minTablet:flex-row justify-between mt-[30px]`}>
                         <div className='flex flex-col phone:flex-row text-[12px] leading-[15px]'>
-                            <Link href='/checkout'><button className='w-[161px] h-[60px] bg-[#31514D] uppercase text-white'>Check Out</button></Link>
+                            {
+                                (showCartNotification === 'none')?
+                                (<button className='hover:cursor-default w-[161px] h-[60px] opacity-[0.3] bg-[#31514D] uppercase text-white'>Check Out</button>) 
+                                :
+                                (<Link href='/checkout'><button className='w-[161px] h-[60px] bg-[#31514D] uppercase text-white'>Check Out</button></Link>)
+                            }
                             <Link href='/'><button className='mt-[30px] phone:mt-0 ml-0 phone:ml-[25px] w-[161px] h-[60px] bg-white uppercase text-[##31514D] border-[1px] border-[#31514D]'>CONTINUE SHOPPING</button></Link>
                         </div>
                         <div className='flex flex-row'>
